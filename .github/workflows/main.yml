@@ -35,14 +35,14 @@ jobs:
           }
 
       # Example 3
-      - name: Get changed files in the docs folder
+      - name: Get changed files in the src folder
         id: changed-files-specific
         uses: tj-actions/changed-files@v37
         with:
-          files: Tests/*.vi  # Alternatively using: `docs/**` or `docs`
+          files: src/**/*.vi  # Alternatively using: `docs/**` or `docs`
           # files_ignore: docs/static.js
 
-      - name: Run step if any file(s) in the docs folder change
+      - name: Run step if any file(s) in the src folder change
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
           echo "One or more files in the docs folder has changed."
