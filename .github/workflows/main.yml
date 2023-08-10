@@ -40,7 +40,7 @@ jobs:
         uses: tj-actions/changed-files@v37
         with:
           files: src/**/*.vi  # Alternatively using: `docs/**` or `docs`
-          test_files: src/**/Tests/*.vi
+          # test_files: src/**/Tests/*.vi
           # files_ignore: docs/static.js
 
       - name: Run step if any file(s) in the src folder change
@@ -48,6 +48,6 @@ jobs:
         run: |
           echo "One or more files in the docs folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          $runTests = test_files
+          $runTests = $test_files
           g-cli --lv-ver 2020 $runTests
 
