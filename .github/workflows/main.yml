@@ -51,6 +51,9 @@ jobs:
           echo "One or more files in the docs folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
           echo "Checking ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          if (steps.changed-files-specific.outputs.all_changed_files == 'src/**/Tests'){
+            echo "It's TRUE"
+          }
           
 
       - name: Run tests in the Tests folder if they changed
