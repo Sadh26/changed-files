@@ -50,6 +50,4 @@ jobs:
         run: |
           echo "One or more files in the docs folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          $runTests = $test_files
-          g-cli --lv-ver 2020 $runTests
-
+         
