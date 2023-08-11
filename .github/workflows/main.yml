@@ -72,7 +72,6 @@ jobs:
                       }
                   }
               }
-          }
 
           # The starting directory for iteration
           $starting_directory = "Tests"
