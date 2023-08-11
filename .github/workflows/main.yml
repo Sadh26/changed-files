@@ -53,7 +53,7 @@ jobs:
           
 
       - name: Run tests in the Tests folder if they changed
-        if: steps.changed-files-specific.outputs.any_changed == 'true' && steps.changed-files-specific.outputs.all_changed_files =~ 'src/Tests/'
+        if: steps.changed-files-specific.outputs.any_changed == 'true' && steps.changed-files-specific.outputs.all_changed_files == 'src/**/Tests'
         run: |
           echo "Running tests in the Tests folder"
           g-cli --lv-ver 2020 steps.changed-files-specific.outputs.all_changed_files
