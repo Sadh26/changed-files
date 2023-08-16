@@ -27,11 +27,13 @@ jobs:
       - name: Check if Tests folder has changed
         id: tests-folder-changed
         run: |
-          echo "${{ steps.changed-files-specific.outputs.all_changed_files }}" | grep -q 'src/Tests/'
-          echo "tests_folder_changed=${PIPESTATUS[1]}" >> $GITHUB_ENV
+          if (${{ steps.changed-files-specific.outputs.all_changed_files }} -match 'src/Tests/') {
+            Write-Host "Tests folder has changed."
+            echo "tests_folder_changed=true" >> $env:GITHUB_ENV
+          }
       
       - name: Run tests in the Tests folder if they changed
-        if: steps.tests-folder-changed.outputs.tests_folder_changed == '0'
+        if: steps.tests-folder-changed.outputs.tests_folder_changed == 'true'
         run: |
-          echo "Running tests in the Tests folder"
+          Write-Host "Running tests in the Tests folder"
           # Add your test running commands here for the Tests folder
