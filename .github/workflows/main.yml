@@ -54,6 +54,7 @@ jobs:
           $path = "steps.changed-files-specific.outputs.all_changed_files"
           $directory = Split-Path $path -Parent
           echo $directory
+          echo $path
           
           
 
