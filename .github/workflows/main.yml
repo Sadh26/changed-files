@@ -1,39 +1,65 @@
-name: Get changed files in the src folder
+name: CI
+
 on:
-  push:
-    paths:
-      - 'src/**'
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
 
 jobs:
-  detect-changes:
+  # ------------------------------------------------------------------------------------------------------------------------------------------------
+  # Event `pull_request`: Compare the last commit of the main branch or last remote commit of the PR branch -> to the current commit of a PR branch.
+  # ------------------------------------------------------------------------------------------------------------------------------------------------
+  changed_files:
     runs-on: self-hosted
+    name: Test changed-files
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+
       
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v37
+        
+        # To compare changes between the current commit and the last pushed remote commit set `since_last_remote_commit: true`. e.g
+        # with:
+        #   since_last_remote_commit: true 
+
+      - name: List all changed files
+        run: |
+          foreach ($file in "${{ steps.changed-files.outputs.all_changed_files }}") {
+            Write-Output "$file was changed"
+          }
+      # Example 3
       - name: Get changed files in the src folder
         id: changed-files-specific
         uses: tj-actions/changed-files@v37
         with:
-          files: src/**/*.vi
+          files: src/**/*.vi  # Alternatively using: `docs/**` or `docs`
           separator: ","
-      
+          # test_files: src/**/Tests/*.vi
+          # files_ignore: docs/static.js
+
       - name: Run step if any file(s) in the src folder change
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
-          echo "One or more files in the src folder has changed."
+          echo "One or more files in the docs folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-      
-      - name: Check if Tests folder has changed
-        id: tests-folder-changed
-        run: |
-          if (${{ steps.changed-files-specific.outputs.all_changed_files }} -match 'src/Tests/') {
-            Write-Host "Tests folder has changed."
-            echo "tests_folder_changed=true" >> $env:GITHUB_ENV
-          }
-      
-      - name: Run tests in the Tests folder if they changed
-        if: steps.tests-folder-changed.outputs.tests_folder_changed == 'true'
-        run: |
-          Write-Host "Running tests in the Tests folder"
-          # Add your test running commands here for the Tests folder
+          echo "Checking ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          $path = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          # $directory = Split-Path $path -Parent
+          # echo $directory
+          echo $path
+          
+          
+      # - name: Run tests in the Tests folder if they changed
+      #   if: steps.changed-files-specific.outputs.any_changed == 'true' && steps.changed-files-specific.outputs.all_changed_files == 'src/**/Tests'
+      #   run: |
+      #     $path = "steps.changed-files-specific.outputs.all_changed_files"
+      #     $directory = Split-Path $path -Parent
+
+      #     echo "Running tests in the Tests folder"
+      #     g-cli --lv-ver 2020 steps.changed-files-specific.outputs.all_changed_files
