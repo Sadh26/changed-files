@@ -50,8 +50,8 @@ jobs:
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
           echo "Checking ${{ steps.changed-files-specific.outputs.all_changed_files }}"
           $path = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          # $directory = Split-Path $path -Parent
-          # echo $directory
+          $directory = "${{ github.workspace }}\$(Split-Path $path -Parent)"
+          echo $directory
           echo $path
           
           
