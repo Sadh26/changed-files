@@ -51,8 +51,8 @@ jobs:
           echo "Checking ${{ steps.changed-files-specific.outputs.all_changed_files }}"
           $path = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
           $directory = "${{ github.workspace }}\$(Split-Path $path -Parent)"
-          echo $directory
-          echo $path
+          echo "Directory: $directory"
+          echo "Path: $path"
           
           
       # - name: Run tests in the Tests folder if they changed
