@@ -38,7 +38,7 @@ jobs:
         id: changed-files-specific
         uses: tj-actions/changed-files@v37
         with:
-          files: src/**/*.vi  # Alternatively using: `docs/**` or `docs`
+          files: src\**\*.vi  # Alternatively using: `docs/**` or `docs`
           separator: ","
           # test_files: src/**/Tests/*.vi
           # files_ignore: docs/static.js
