@@ -15,7 +15,7 @@ jobs:
         with:
           name: test report
           path: |
-            src/**/Tests/*.txt
+            C:\Users\sadhana.suresh\Desktop\Changed files\changed-files\src\CelsiustoFarenheit\Tests\Analysis.txt
             
 
       # - name: Archive code coverage results
