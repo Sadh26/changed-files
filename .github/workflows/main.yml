@@ -15,7 +15,7 @@ jobs:
         with:
           name: test report
           path: |
-            C:\Users\sadhana.suresh\Desktop\Changed files\changed-files\src\CelsiustoFarenheit\Tests\Analysis.txt
+            ${{ github.workspace }}\src\**\Tests\*.txt
             
 
       # - name: Archive code coverage results
