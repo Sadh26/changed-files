@@ -35,7 +35,7 @@ jobs:
           }
 
       # Example 3
-      
+
       - name: Get changed files in the src folder
         id: changed-files-specific
         uses: tj-actions/changed-files@v37
@@ -45,19 +45,13 @@ jobs:
        
           # test_files: src/**/Tests/*.vi
           # files_ignore: docs/static.js
+        # run: |
+        #   echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          
+          
+
+      - name: Run step if any file(s) in the src folder change
         run: |
+          echo "One or more files in the docs folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
           
-          
-
-
-      # - name: Run step if any file(s) in the src folder change
-      #   if: steps.changed-files-specific.outputs.any_changed == 'true'
-      #   run: |
-      #     echo "One or more files in the docs folder has changed."
-      #     echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-      #     echo "Checking ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-      #     $path = "${{ github.workspace }}\${{ steps.changed-files-specific.outputs.all_changed_files }}"
-      #     $directory = "${{ github.workspace }}\$(Split-Path $path -Parent)"
-      #     echo "Directory: $directory"
-      #     echo "Path: $path"
