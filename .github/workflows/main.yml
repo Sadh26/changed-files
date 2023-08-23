@@ -40,17 +40,18 @@ jobs:
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
           $workspace = "${{ github.workspace }}"
           $workspace_path = $workspace.Replace("\", "/")
+          echo $workspace_path
           $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
           $directory = "$workspace_path/$changed_file"
           echo "Directory: $directory"
-          LabVIEWCLI -OperationName RunVI -VIPath "$workspace_path/src/Project file/OpenProject.vi" "$directory"
+          LabVIEWCLI -OperationName RunVI -VIPath "$workspace_pathsrc/Project file/OpenProject.vi" "$directory"
           $TestPath = "$(Split-Path $directory -Parent)\Tests"
           echo "Test Path: $TestPath"
 
           $isFileExist = $false
 
           # Function to find test vi files
-          function Find-ViFiles {
+          function Find-ViFiles {u
               param (
                   [string]$path
               )
