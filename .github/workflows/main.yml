@@ -59,7 +59,7 @@ jobs:
           $isFileExist = $false
 
           # Function to find test vi files
-          function Find-ViFiles {u
+          function Find-ViFiles {
               param (
                   [string]$path
               )
