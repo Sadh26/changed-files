@@ -43,7 +43,7 @@ jobs:
           $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
           $directory = "$workspace_path/$changed_file"
           echo "Directory: $directory"
-          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$directory"
+          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" $directory
           $TestPath = "$(Split-Path $directory -Parent)\Tests"
           echo "Test Path: $TestPath"
 
