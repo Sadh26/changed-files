@@ -46,3 +46,38 @@ jobs:
           LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$directory"
           $TestPath = "$(Split-Path $directory -Parent)\Tests"
           echo "Test Path: $TestPath"
+
+          $isFileExist = $false
+
+          # Function to find test vi files
+          function Find-ViFiles {
+              param (
+                  [string]$TestPath
+              )
+
+          Get-ChildItem $path -Recurse | ForEach-Object {
+              if ($_.PSIsContainer) {
+                  Find-ViFiles $_.FullName
+              }
+
+              elseif ($_.Extension -eq ".vi") {
+                  $isFileExist = $true
+                  Write-Output ("`n`nFound .vi file: " + $_.FullName)
+                  Write-Output ("Running unit test file " + $_.FullName)
+                  $output = g-cli --lv-ver 2020 $_.FullName
+                  Write-Output ("$output")
+                  if ($output -ne $null) {
+                    $errorIn = "true"
+                  }
+              }
+          }
+          if ($isFileExist -eq $false) {
+            Write-Output "No test files found"
+          }
+          if ($errorIn -eq "true") {
+            return $true
+          }
+          else {
+            return $false
+          }
+          }
