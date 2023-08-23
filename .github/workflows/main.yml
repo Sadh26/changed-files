@@ -49,7 +49,7 @@ jobs:
           $file_name = [System.IO.Path]::GetFileName($directory)
           $file_path = [System.IO.Path]::GetDirectoryName($directory)
           $filename_without_extension = [System.IO.Path]::GetFileNameWithoutExtension($file_name)
-          $proj_path= $file_path+$filename_without_extension+".lvproj"
+          $proj_path= $file_path+"/"+$filename_without_extension+".lvproj"
           echo $proj_path
 
           LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$proj_path"
