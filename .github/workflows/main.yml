@@ -52,33 +52,33 @@ jobs:
           # Function to find test vi files
           function Find-ViFiles {
               param (
-                  [string]$TestPath
+                  [string]$path
               )
 
-          Get-ChildItem $path -Recurse | ForEach-Object {
-              if ($_.PSIsContainer) {
-                  Find-ViFiles $_.FullName
-              }
-
-              elseif ($_.Extension -eq ".vi") {
-                  $isFileExist = $true
-                  Write-Output ("`n`nFound .vi file: " + $_.FullName)
-                  Write-Output ("Running unit test file " + $_.FullName)
-                  $output = g-cli --lv-ver 2020 $_.FullName
-                  Write-Output ("$output")
-                  if ($output -ne $null) {
-                    $errorIn = "true"
+              Get-ChildItem $path -Recurse | ForEach-Object {
+                  if ($_.PSIsContainer) {
+                      Find-ViFiles $_.FullName
+                  }
+                  elseif ($_.Extension -eq ".vi") {
+                      $isFileExist = $true
+                      Write-Output ("`n`nFound .vi file: " + $_.FullName)
+                      Write-Output ("Running unit test file " + $_.FullName)
+                      $output = g-cli --lv-ver 2020 $_.FullName
+                      Write-Output ("$output")
+                      if ($output -ne $null) {
+                        $errorIn = "true"
+                      }
                   }
               }
-          }
-          if ($isFileExist -eq $false) {
-            Write-Output "No test files found"
-          }
-          if ($errorIn -eq "true") {
-            return $true
-          }
-          else {
-            return $false
-          }
-          }
+              if ($isFileExist -eq $false) {
+                Write-Output "No test files found"
+              }
+              if ($errorIn -eq "true") {
+                return $true
+              }
+              else {
+                return $false
+              }
+          } 
+
           Find-ViFiles $TestPath
