@@ -46,9 +46,9 @@ jobs:
           $directory = "$workspace_path/$changed_file"
           echo "Directory: $directory"
 
-          $file_name=$(basename "$directory")
-          $file_path=$(dirname "$directory")
-          $filename_without_extension="${file_name%.*}"
+          $file_name = [System.IO.Path]::GetFileName($file)
+          $file_path = [System.IO.Path]::GetDirectoryName($file)
+          $filename_without_extension = [System.IO.Path]::GetFileNameWithoutExtension($file_name)
           $proj_path= $directory+$filename_without_extension+".lvproj"
           echo $proj_path
 
