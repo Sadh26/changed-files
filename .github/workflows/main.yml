@@ -41,10 +41,18 @@ jobs:
           $workspace = "${{ github.workspace }}"
           $workspace_path = $workspace.Replace("\", "/")
           echo $workspace_path
+
           $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
           $directory = "$workspace_path/$changed_file"
           echo "Directory: $directory"
-          LabVIEWCLI -OperationName RunVI -VIPath "$workspace_pathsrc/Project file/OpenProject.vi" "$directory"
+
+          $file_name=$(basename "$directory")
+          $file_path=$(dirname "$directory")
+          $filename_without_extension="${file_name%.*}"
+          $proj_path= $directory+$filename_without_extension+".lvproj"
+          echo $proj_path
+
+          LabVIEWCLI -OperationName RunVI -VIPath "$workspace_path/src/Project file/OpenProject.vi" "$proj_path"
           $TestPath = "$(Split-Path $directory -Parent)\Tests"
           echo "Test Path: $TestPath"
 
