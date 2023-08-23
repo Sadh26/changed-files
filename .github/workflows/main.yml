@@ -17,14 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 2  # OR "2" -> To retrieve the preceding commit.
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
 
       - name: Get changed files in the src folder
         id: changed-files-specific
         uses: tj-actions/changed-files@v37
         with:
-          files: src/**/*.lvproj  # Alternatively using: `docs/**` or `docs`
+          files: src/*/*/*.vi  # Alternatively using: `docs/**` or `docs`
           separator: ","
        
           # test_files: src/**/Tests/*.vi
