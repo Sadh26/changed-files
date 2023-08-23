@@ -19,7 +19,6 @@
 				<Item Name="Drona.ini" Type="Document" URL="../Drona.ini"/>
 				<Item Name="TemperatureConversion.vi" Type="VI" URL="../TemperatureConversion.vi"/>
 			</Item>
-			<Item Name="Trial.txt" Type="Document" URL="../Trial.txt"/>
 		</Item>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="user.lib" Type="Folder">
