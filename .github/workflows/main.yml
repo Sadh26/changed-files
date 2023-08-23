@@ -15,7 +15,7 @@ jobs:
     runs-on: self-hosted
     name: Test changed-files
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 2  # OR "2" -> To retrieve the preceding commit.
 
