@@ -1,122 +1,57 @@
+name: CI
 
-name: Run Tests
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on PR to the master/main branch. 
-  # It is advised to work on a feature branch and not the master/main branch.
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains one job: It opens the project file and runs the test vis from Tests folder.
-  
-  run-tests: 
-    # Set the self hosted runner
+  # ------------------------------------------------------------------------------------------------------------------------------------------------
+  # Event `pull_request`: Compare the last commit of the main branch or last remote commit of the PR branch -> to the current commit of a PR branch.
+  # ------------------------------------------------------------------------------------------------------------------------------------------------
+  changed_files:
     runs-on: self-hosted
-
+    name: Test changed-files
     steps:
-      # Checkout the repository to the runner
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Open LabVIEW
-        run: |
-            start "C:\Program Files\National Instruments\LabVIEW 2020\LabVIEW.exe"
-
-      - name: Run Tests
-        run: |
-          $starting_directory = "${{ github.workspace }}\src"
-          $errorIn = "false"
-          $isFileExist = $false
-
-          # The starting directory for iteration
-          $test_directory = "Tests"
-
-
-          # Function to find test vi files
-          function Find-ViFiles {
-              param (
-                  [string]$path
-              )
-
-              Get-ChildItem $path -Recurse | ForEach-Object {
-                  if ($_.PSIsContainer) {
-                      Find-ViFiles $_.FullName
-                  }
-                  elseif ($_.Extension -eq ".vi") {
-                      $isFileExist = $true
-                      Write-Output ("`n`nFound .vi file: " + $_.FullName)
-                      Write-Output ("Running unit test file " + $_.FullName)
-                      $output = g-cli --lv-ver 2020 $_.FullName
-                      Write-Output ("$output")
-                      if ($output -ne $null) {
-                        $errorIn = "true"
-                      }
-                  }
-              }
-              if ($isFileExist -eq $false) {
-                Write-Output "No test files found"
-              }
-              if ($errorIn -eq "true") {
-                return $true
-              }
-              else {
-                return $false
-              }
-          } 
-
-          # Function to find .lvproj files
-          function Find-lvprojFiles {
-              param (
-                  [string]$directory
-              )
-
-              $lvprojFiles = Get-ChildItem -Path $directory -Recurse -Filter *.lvproj -File
-
-              foreach ($lvprojFile in $lvprojFiles) {
-                  Write-Host ("Found .lvproj file: " + $lvprojFile.FullName)
-                  LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" $lvprojFile.FullName
-                  $folder_name = "$(Split-Path $lvprojFile.FullName -Parent)\$test_directory"
-                  if (Test-Path -Path $folder_name -PathType Container)
-                  {
-                    $errorIn = Find-ViFiles "$folder_name"
-                  }
-                  else 
-                  {
-                    Write-Output "No test folder found"
-                  }
-              }
-              if ($errorIn -eq "true") {
-                Write-Output "Error Exist..."
-                Exit 1
-              }
-          }
-
-
-          # Calling Find-lvprojFiles function with input parameter starting_directory
-          Find-lvprojFiles $starting_directory
-
-      - name: Archive production artifacts
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v3
+      - uses: actions/checkout@v3
         with:
-          name: test report
-          path: |
-            ${{ github.workspace }}\src\**\Tests\*.txt   
-
-      - name: Close LabVIEW
-        if: ${{ always() }}
-        run: |
-            taskkill /im LabVIEW.exe
-        shell: cmd       
-
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
       
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v37
+        
+        # To compare changes between the current commit and the last pushed remote commit set `since_last_remote_commit: true`. e.g
+        # with:
+        #   since_last_remote_commit: true 
 
+      - name: List all changed files
+        run: |
+          foreach ($file in "${{ steps.changed-files.outputs.all_changed_files }}") {
+            Write-Output "$file was changed"
+          }
 
+      # Example 3
 
+      - name: Get changed files in the src folder
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v37
+        with:
+          files: src\**\*.lvproj  # Alternatively using: `docs/**` or `docs`
+          separator: ","
+       
+          # test_files: src/**/Tests/*.vi
+          # files_ignore: docs/static.js
+        # run: |
+        #   echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          
+          
+
+      - name: Run step if any file(s) in the src folder change
+        run: |
+          echo "One or more files in the docs folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          
