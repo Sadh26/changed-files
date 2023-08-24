@@ -100,7 +100,7 @@ jobs:
                             Find-ViFiles $TestPath
                         }
                     }
-                    }
+                    
                     $directory = Split-Path $directory -Parent
                     }
                 
