@@ -83,7 +83,10 @@ jobs:
                 $lvprojFiles = Get-ChildItem -Path $targetDirectory -Filter "*.lvproj" -File
 
                 if ($lvprojFiles.Count -gt 0) {
-
+                
+                    $directory = "$workspace_path/$file"
+                    echo "Directory: $directory"
+                    $directory = Split-Path $directory -Parent
                     $flag = $true
                     $listOfLvfiles+= $lvprojFiles
                     $uniqueList = $listOfLvfiles | Get-Unique
