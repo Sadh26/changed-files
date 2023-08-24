@@ -77,6 +77,9 @@ jobs:
                 $directory = Split-Path $directory -Parent
                 $flag = $false
 
+                echo "Path List: $pathList"
+                echo "Directory: $directory"
+                
                 if ($pathList -notcontains $directory)
                 {
                   while ($flag -eq $false) {                 
@@ -96,7 +99,7 @@ jobs:
                             Find-ViFiles $TestPath
                         }
                     }
-                    echo "Path List: $pathList"
+                    
                     $directory = Split-Path $directory -Parent
                     }
                 }
