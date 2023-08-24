@@ -43,8 +43,17 @@ jobs:
           echo $workspace_path
 
           $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          $directory = "$workspace_path/$changed_file"
-          echo "Directory: $directory"
+
+          $changedFiles = $changed_file -split ','
+          $testsFolderChanged = $false
+    
+          foreach ($file in $changedFiles) {
+              $directory = "$workspace_path/$file"
+              echo "Directory: $directory"            
+          }          
+
+          # $directory = "$workspace_path/$changed_file"
+          # echo "Directory: $directory"
 
           $file_name = [System.IO.Path]::GetFileName($directory)
           $file_path = [System.IO.Path]::GetDirectoryName($directory)
