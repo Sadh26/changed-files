@@ -57,7 +57,8 @@ jobs:
                 else {
                   return $false
                 }
-            }        
+            }      
+
             echo "One or more files in the src folder has changed."
             echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
 
@@ -68,10 +69,7 @@ jobs:
             $changedFiles = $changed_file -split ',' 
 
             $isFileExist = $false
-
-
             $flag = $false
-   
             $listOfLvfiles = @()
 
 
@@ -86,15 +84,26 @@ jobs:
 
                 if ($lvprojFiles.Count -gt 0) {
 
-                $flag = $true
-                $listOfLvfiles+= $lvprojFiles
-                $uniqueList = $listOfLvfiles | Get-Unique
-                Write-Host $uniqueList 
+                    $flag = $true
+                    $listOfLvfiles+= $lvprojFiles
+                    $uniqueList = $listOfLvfiles | Get-Unique
+                    Write-Host $uniqueList 
+
+                    foreach ($lvprojFile in $uniqueList) {
+                        Write-Host $lvprojFile.FullName
+                        LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" $lvprojFile.FullName
+                        $TestPath = "$directory\Tests"
+                        echo "Test Path: $TestPath"
+                        Find-ViFiles $TestPath
+                    }
 
                 # If .lvproj files exist, print the paths
                 # Write-Host "Found .lvproj files:"
+
                 }
-                $file = $targetDirectory
+
+                $directory = Split-Path $directory -Parent
+
                 }
                               
               }
