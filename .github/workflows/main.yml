@@ -48,22 +48,22 @@ jobs:
               {
                 while ($flag -eq $false) {
 
-                  $targetDirectory = Split-Path $originalPath -Parent
+                  # $targetDirectory = Split-Path $originalPath -Parent
 
                   # Get all .lvproj files in the directory
-                  $lvprojFiles = Get-ChildItem -Path $targetDirectory -Filter "*.lvproj" -File
+                  $lvprojFiles = Get-ChildItem -Path $directory -Filter "*.lvproj" -File
 
                   if ($lvprojFiles.Count -gt 0) {
                       $flag = $true
-                      $pathList += $targetDirectory
+                      $pathList += $directory
                       foreach ($lvprojFile in $lvprojFiles) {
                           Write-Host $lvprojFile.FullName
                           LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$lvprojFile.FullName"
-                          $TestPath = "$targetDirectory\Tests"
+                          $TestPath = "$directory\Tests"
                           echo "Test Path: $TestPath"
                       }
                   }
-                  $originalPath = $targetDirectory
+                  $directory = Split-Path $directory -Parent
                   }
               }
             }
