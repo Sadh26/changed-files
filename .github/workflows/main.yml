@@ -23,7 +23,7 @@ jobs:
         id: changed-files-specific
         uses: tj-actions/changed-files@v37
         with:
-          files: src/**/*.vi  # Alternatively using: `docs/**` or `docs`
+          files: src/**/*.vi , src/**/*.ctl # Alternatively using: `docs/**` or `docs`
           separator: ","          
 
       - name: Run Tests
