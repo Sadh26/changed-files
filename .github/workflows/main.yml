@@ -84,16 +84,18 @@ jobs:
                 # Get all .lvproj files in the directory
                 $lvprojFiles = Get-ChildItem -Path $targetDirectory -Filter "*.lvproj" -File
 
-                if ($lvprojFiles.Count -gt 0 -and $listOfLvfiles -notcontains $lvprojFiles ) {
+                if ($lvprojFiles.Count -gt 0) {
 
                 $flag = $true
                 $listOfLvfiles+= $lvprojFiles
+                $uniqueList = $listOfLvfiles | Get-Unique
+
                 # If .lvproj files exist, print the paths
                 Write-Host "Found .lvproj files:"
                 }
                 $file = $targetDirectory
                 }
-                Write-Host $listOfLvfiles               
+                Write-Host $uniqueList               
               }
 
              
