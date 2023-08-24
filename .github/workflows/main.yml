@@ -37,6 +37,7 @@ jobs:
           $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
           $changedFiles = $changed_file -split ',' 
           $pathList = @()
+          $isFileExist = $false
 
           foreach ($file in $changedFiles) {
               $directory = "$workspace_path/$file"
@@ -61,6 +62,7 @@ jobs:
                           LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" $lvprojFile.FullName
                           $TestPath = "$directory\Tests"
                           echo "Test Path: $TestPath"
+                          Find-ViFiles $TestPath
                       }
                   }
                   $directory = Split-Path $directory -Parent
@@ -78,41 +80,38 @@ jobs:
               # $TestPath = "$(Split-Path $directory -Parent)\Tests"
               # echo "Test Path: $TestPath"
 
-          #     $isFileExist = $false
+            # Function to find test vi files
+            function Find-ViFiles {
+                param (
+                    [string]$path
+                )
 
-          #     # Function to find test vi files
-          #     function Find-ViFiles {
-          #         param (
-          #             [string]$path
-          #         )
+                Get-ChildItem $path -Recurse | ForEach-Object {
+                    if ($_.PSIsContainer) {
+                        Find-ViFiles $_.FullName
+                    }
+                    elseif ($_.Extension -eq ".vi") {
+                        $isFileExist = $true
+                        Write-Output ("`n`nFound .vi file: " + $_.FullName)
+                        Write-Output ("Running unit test file " + $_.FullName)
+                        $output = g-cli --lv-ver 2020 $_.FullName
+                        Write-Output ("$output")
+                        if ($output -ne $null) {
+                          $errorIn = "true"
+                        }
+                    }
+                }
+                if ($isFileExist -eq $false) {
+                  Write-Output "No test files found"
+                }
+                if ($errorIn -eq "true") {
+                  return $true
+                }
+                else {
+                  return $false
+                }
+            }
 
-          #         Get-ChildItem $path -Recurse | ForEach-Object {
-          #             if ($_.PSIsContainer) {
-          #                 Find-ViFiles $_.FullName
-          #             }
-          #             elseif ($_.Extension -eq ".vi") {
-          #                 $isFileExist = $true
-          #                 Write-Output ("`n`nFound .vi file: " + $_.FullName)
-          #                 Write-Output ("Running unit test file " + $_.FullName)
-          #                 $output = g-cli --lv-ver 2020 $_.FullName
-          #                 Write-Output ("$output")
-          #                 if ($output -ne $null) {
-          #                   $errorIn = "true"
-          #                 }
-          #             }
-          #         }
-          #         if ($isFileExist -eq $false) {
-          #           Write-Output "No test files found"
-          #         }
-          #         if ($errorIn -eq "true") {
-          #           return $true
-          #         }
-          #         else {
-          #           return $false
-          #         }
-          #     } 
-
-          #     Find-ViFiles $TestPath                        
-          # }          
+                        
  
 
