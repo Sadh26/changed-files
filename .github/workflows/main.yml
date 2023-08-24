@@ -88,13 +88,14 @@ jobs:
 
                 $flag = $true
                 $listOfLvfiles+= $lvprojFiles
-                $uniqueList = $listOfLvfiles | Get-Unique
+                
 
                 # If .lvproj files exist, print the paths
                 Write-Host "Found .lvproj files:"
                 }
                 $file = $targetDirectory
                 }
+                $uniqueList = $listOfLvfiles | Get-Unique
                 Write-Host $uniqueList               
               }
 
