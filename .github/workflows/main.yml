@@ -97,7 +97,7 @@ jobs:
 
               foreach ($lvprojFile in $uniqueList) 
               {
-                          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" $lvprojFile.FullName
+                          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$lvprojFile.FullName"
                           $directory = Split-Path $lvprojFile -Parent
                           $TestPath = "$directory\Tests"
                           echo "Test Path: $TestPath"
