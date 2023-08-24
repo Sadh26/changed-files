@@ -75,20 +75,20 @@ jobs:
 
              foreach ($file in $changedFiles)
              {
-                
+                $flag = $false
                 while ($flag -eq $false) {
-                $targetDirectory = Split-Path $file -Parent
+                  $targetDirectory = Split-Path $file -Parent
 
-                # Get all .lvproj files in the directory
-                $lvprojFiles = Get-ChildItem -Path $targetDirectory -Filter "*.lvproj" -File
+                  # Get all .lvproj files in the directory
+                  $lvprojFiles = Get-ChildItem -Path $targetDirectory -Filter "*.lvproj" -File
 
-                if ($lvprojFiles.Count -gt 0) {
+                  if ($lvprojFiles.Count -gt 0) {
 
-                $flag = $true
-                $listOfLvfiles+= $lvprojFiles.FullName
+                    $flag = $true
+                    $listOfLvfiles += $lvprojFiles.FullName
 
-                }
-                $file = $targetDirectory
+                  }
+                  $file = $targetDirectory
                 }
                               
               }
