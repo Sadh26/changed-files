@@ -19,86 +19,100 @@ jobs:
         with:
           fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
-
       - name: Get changed files in the src folder
         id: changed-files-specific
         uses: tj-actions/changed-files@v37
         with:
-          files: src/*/*/*.vi  # Alternatively using: `docs/**` or `docs`
-          separator: ","
-       
-          # test_files: src/**/Tests/*.vi
-          # files_ignore: docs/static.js
-        # run: |
-        #   echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          
-          
+          files: src/**/*.vi  # Alternatively using: `docs/**` or `docs`
+          separator: ","          
 
-      - name: Run step if any file(s) in the src folder change
+      - name: Run Tests
         run: |
-          echo "One or more files in the docs folder has changed."
+          echo "One or more files in the src folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+
           $workspace = "${{ github.workspace }}"
           $workspace_path = $workspace.Replace("\", "/")
-          echo $workspace_path
 
           $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          $changedFiles = $changed_file -split ',' 
+          $pathList = @()
 
-          $changedFiles = $changed_file -split ','
-    
           foreach ($file in $changedFiles) {
               $directory = "$workspace_path/$file"
-              echo "Directory: $directory"  
+              echo "Directory: $directory"
+              $directory = Split-Path $directory -Parent
+              $flag = $false
 
-              $file_name = [System.IO.Path]::GetFileName($directory)
-              $file_path = [System.IO.Path]::GetDirectoryName($directory)
-              $filename_without_extension = [System.IO.Path]::GetFileNameWithoutExtension($file_name)
-              $proj_path= $file_path+"\"+$filename_without_extension+".lvproj"
-              echo $proj_path
+              if ($pathList -notcontains $directory)
+              {
+                while ($flag -eq $false) {
 
-              LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$proj_path"
-              $TestPath = "$(Split-Path $directory -Parent)\Tests"
-              echo "Test Path: $TestPath"
+                  $targetDirectory = Split-Path $originalPath -Parent
 
-              $isFileExist = $false
+                  # Get all .lvproj files in the directory
+                  $lvprojFiles = Get-ChildItem -Path $targetDirectory -Filter "*.lvproj" -File
 
-              # Function to find test vi files
-              function Find-ViFiles {
-                  param (
-                      [string]$path
-                  )
-
-                  Get-ChildItem $path -Recurse | ForEach-Object {
-                      if ($_.PSIsContainer) {
-                          Find-ViFiles $_.FullName
-                      }
-                      elseif ($_.Extension -eq ".vi") {
-                          $isFileExist = $true
-                          Write-Output ("`n`nFound .vi file: " + $_.FullName)
-                          Write-Output ("Running unit test file " + $_.FullName)
-                          $output = g-cli --lv-ver 2020 $_.FullName
-                          Write-Output ("$output")
-                          if ($output -ne $null) {
-                            $errorIn = "true"
-                          }
+                  if ($lvprojFiles.Count -gt 0) {
+                      $flag = $true
+                      $pathList += $targetDirectory
+                      foreach ($lvprojFile in $lvprojFiles) {
+                          Write-Host $lvprojFile.FullName
+                          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$lvprojFile.FullName"
+                          $TestPath = "$targetDirectory\Tests"
+                          echo "Test Path: $TestPath"
                       }
                   }
-                  if ($isFileExist -eq $false) {
-                    Write-Output "No test files found"
+                  $originalPath = $targetDirectory
                   }
-                  if ($errorIn -eq "true") {
-                    return $true
-                  }
-                  else {
-                    return $false
-                  }
-              } 
+              }
+            }
 
-              Find-ViFiles $TestPath                        
-          }          
+              # $file_name = [System.IO.Path]::GetFileName($directory)
+              # $file_path = [System.IO.Path]::GetDirectoryName($directory)
+              # $filename_without_extension = [System.IO.Path]::GetFileNameWithoutExtension($file_name)
+              # $proj_path= $file_path+"\"+$filename_without_extension+".lvproj"
+              # echo $proj_path
 
-              # $directory = "$workspace_path/$changed_file"
-              # echo "Directory: $directory"
+              # LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$proj_path"
+              # $TestPath = "$(Split-Path $directory -Parent)\Tests"
+              # echo "Test Path: $TestPath"
 
+          #     $isFileExist = $false
 
+          #     # Function to find test vi files
+          #     function Find-ViFiles {
+          #         param (
+          #             [string]$path
+          #         )
+
+          #         Get-ChildItem $path -Recurse | ForEach-Object {
+          #             if ($_.PSIsContainer) {
+          #                 Find-ViFiles $_.FullName
+          #             }
+          #             elseif ($_.Extension -eq ".vi") {
+          #                 $isFileExist = $true
+          #                 Write-Output ("`n`nFound .vi file: " + $_.FullName)
+          #                 Write-Output ("Running unit test file " + $_.FullName)
+          #                 $output = g-cli --lv-ver 2020 $_.FullName
+          #                 Write-Output ("$output")
+          #                 if ($output -ne $null) {
+          #                   $errorIn = "true"
+          #                 }
+          #             }
+          #         }
+          #         if ($isFileExist -eq $false) {
+          #           Write-Output "No test files found"
+          #         }
+          #         if ($errorIn -eq "true") {
+          #           return $true
+          #         }
+          #         else {
+          #           return $false
+          #         }
+          #     } 
+
+          #     Find-ViFiles $TestPath                        
+          # }          
+ 
 
