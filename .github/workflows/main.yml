@@ -79,14 +79,14 @@ jobs:
 
                 echo "Path List: $pathList"
                 echo "Directory: $directory"
-                
-                if ($pathList -notcontains $directory)
-                {
+
                   while ($flag -eq $false) {                 
 
                     # Get all .lvproj files in the directory
                     $lvprojFiles = Get-ChildItem -Path $directory -Filter "*.lvproj" -File
-
+                    $lvfilepath = Split-Path $lvprojFiles -Parent
+                    if ($pathList -notcontains $lvfilepath)
+                    {
                     if ($lvprojFiles.Count -gt 0) {
                         $flag = $true
                         $pathList += $directory
@@ -99,10 +99,10 @@ jobs:
                             Find-ViFiles $TestPath
                         }
                     }
-                    
+                    }
                     $directory = Split-Path $directory -Parent
                     }
-                }
+                
               }
 
               # $file_name = [System.IO.Path]::GetFileName($directory)
