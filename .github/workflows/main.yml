@@ -45,59 +45,60 @@ jobs:
           $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
 
           $changedFiles = $changed_file -split ','
-          $testsFolderChanged = $false
     
           foreach ($file in $changedFiles) {
               $directory = "$workspace_path/$file"
-              echo "Directory: $directory"            
-          }          
+              echo "Directory: $directory"  
 
-          # $directory = "$workspace_path/$changed_file"
-          # echo "Directory: $directory"
+              $file_name = [System.IO.Path]::GetFileName($directory)
+              $file_path = [System.IO.Path]::GetDirectoryName($directory)
+              $filename_without_extension = [System.IO.Path]::GetFileNameWithoutExtension($file_name)
+              $proj_path= $file_path+"\"+$filename_without_extension+".lvproj"
+              echo $proj_path
 
-          $file_name = [System.IO.Path]::GetFileName($directory)
-          $file_path = [System.IO.Path]::GetDirectoryName($directory)
-          $filename_without_extension = [System.IO.Path]::GetFileNameWithoutExtension($file_name)
-          $proj_path= $file_path+"\"+$filename_without_extension+".lvproj"
-          echo $proj_path
+              LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$proj_path"
+              $TestPath = "$(Split-Path $directory -Parent)\Tests"
+              echo "Test Path: $TestPath"
 
-          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$proj_path"
-          $TestPath = "$(Split-Path $directory -Parent)\Tests"
-          echo "Test Path: $TestPath"
+              $isFileExist = $false
 
-          $isFileExist = $false
+              # Function to find test vi files
+              function Find-ViFiles {
+                  param (
+                      [string]$path
+                  )
 
-          # Function to find test vi files
-          function Find-ViFiles {
-              param (
-                  [string]$path
-              )
-
-              Get-ChildItem $path -Recurse | ForEach-Object {
-                  if ($_.PSIsContainer) {
-                      Find-ViFiles $_.FullName
-                  }
-                  elseif ($_.Extension -eq ".vi") {
-                      $isFileExist = $true
-                      Write-Output ("`n`nFound .vi file: " + $_.FullName)
-                      Write-Output ("Running unit test file " + $_.FullName)
-                      $output = g-cli --lv-ver 2020 $_.FullName
-                      Write-Output ("$output")
-                      if ($output -ne $null) {
-                        $errorIn = "true"
+                  Get-ChildItem $path -Recurse | ForEach-Object {
+                      if ($_.PSIsContainer) {
+                          Find-ViFiles $_.FullName
+                      }
+                      elseif ($_.Extension -eq ".vi") {
+                          $isFileExist = $true
+                          Write-Output ("`n`nFound .vi file: " + $_.FullName)
+                          Write-Output ("Running unit test file " + $_.FullName)
+                          $output = g-cli --lv-ver 2020 $_.FullName
+                          Write-Output ("$output")
+                          if ($output -ne $null) {
+                            $errorIn = "true"
+                          }
                       }
                   }
-              }
-              if ($isFileExist -eq $false) {
-                Write-Output "No test files found"
-              }
-              if ($errorIn -eq "true") {
-                return $true
-              }
-              else {
-                return $false
-              }
-          } 
+                  if ($isFileExist -eq $false) {
+                    Write-Output "No test files found"
+                  }
+                  if ($errorIn -eq "true") {
+                    return $true
+                  }
+                  else {
+                    return $false
+                  }
+              } 
 
-          Find-ViFiles $TestPath
+              Find-ViFiles $TestPath                        
+          }          
+
+              # $directory = "$workspace_path/$changed_file"
+              # echo "Directory: $directory"
+
+
 
