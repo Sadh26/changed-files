@@ -28,58 +28,6 @@ jobs:
 
       - name: Run Tests
         run: |
-          echo "One or more files in the src folder has changed."
-          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-
-          $workspace = "${{ github.workspace }}"
-          $workspace_path = $workspace.Replace("\", "/")
-
-          $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          $changedFiles = $changed_file -split ',' 
-          $pathList = @()
-          $isFileExist = $false
-
-          foreach ($file in $changedFiles) {
-              $directory = "$workspace_path/$file"
-              echo "Directory: $directory"
-              $directory = Split-Path $directory -Parent
-              $flag = $false
-
-              if ($pathList -notcontains $directory)
-              {
-                while ($flag -eq $false) {
-
-                  # $targetDirectory = Split-Path $originalPath -Parent
-
-                  # Get all .lvproj files in the directory
-                  $lvprojFiles = Get-ChildItem -Path $directory -Filter "*.lvproj" -File
-
-                  if ($lvprojFiles.Count -gt 0) {
-                      $flag = $true
-                      $pathList += $directory
-                      foreach ($lvprojFile in $lvprojFiles) {
-                          Write-Host $lvprojFile.FullName
-                          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" $lvprojFile.FullName
-                          $TestPath = "$directory\Tests"
-                          echo "Test Path: $TestPath"
-                          Find-ViFiles $TestPath
-                      }
-                  }
-                  $directory = Split-Path $directory -Parent
-                  }
-              }
-            }
-
-              # $file_name = [System.IO.Path]::GetFileName($directory)
-              # $file_path = [System.IO.Path]::GetDirectoryName($directory)
-              # $filename_without_extension = [System.IO.Path]::GetFileNameWithoutExtension($file_name)
-              # $proj_path= $file_path+"\"+$filename_without_extension+".lvproj"
-              # echo $proj_path
-
-              # LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$proj_path"
-              # $TestPath = "$(Split-Path $directory -Parent)\Tests"
-              # echo "Test Path: $TestPath"
-
             # Function to find test vi files
             function Find-ViFiles {
                 param (
@@ -110,7 +58,60 @@ jobs:
                 else {
                   return $false
                 }
-            }
+            }        
+            echo "One or more files in the src folder has changed."
+            echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+
+            $workspace = "${{ github.workspace }}"
+            $workspace_path = $workspace.Replace("\", "/")
+
+            $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
+            $changedFiles = $changed_file -split ',' 
+            $pathList = @()
+            $isFileExist = $false
+
+            foreach ($file in $changedFiles) {
+                $directory = "$workspace_path/$file"
+                echo "Directory: $directory"
+                $directory = Split-Path $directory -Parent
+                $flag = $false
+
+                if ($pathList -notcontains $directory)
+                {
+                  while ($flag -eq $false) {
+
+                    # $targetDirectory = Split-Path $originalPath -Parent
+
+                    # Get all .lvproj files in the directory
+                    $lvprojFiles = Get-ChildItem -Path $directory -Filter "*.lvproj" -File
+
+                    if ($lvprojFiles.Count -gt 0) {
+                        $flag = $true
+                        $pathList += $directory
+                        foreach ($lvprojFile in $lvprojFiles) {
+                            Write-Host $lvprojFile.FullName
+                            LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" $lvprojFile.FullName
+                            $TestPath = "$directory\Tests"
+                            echo "Test Path: $TestPath"
+                            Find-ViFiles $TestPath
+                        }
+                    }
+                    $directory = Split-Path $directory -Parent
+                    }
+                }
+              }
+
+              # $file_name = [System.IO.Path]::GetFileName($directory)
+              # $file_path = [System.IO.Path]::GetDirectoryName($directory)
+              # $filename_without_extension = [System.IO.Path]::GetFileNameWithoutExtension($file_name)
+              # $proj_path= $file_path+"\"+$filename_without_extension+".lvproj"
+              # echo $proj_path
+
+              # LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$proj_path"
+              # $TestPath = "$(Split-Path $directory -Parent)\Tests"
+              # echo "Test Path: $TestPath"
+
+
 
                         
  
