@@ -89,7 +89,7 @@ jobs:
                         $pathList += $directory
                         $lvfilepath = Split-Path $lvprojFiles -Parent
                          }
-                    if ($pathList -notcontains $lvfilepath)
+                    if ($pathList -notcontains $lvfilepath -or $pathList -notcontains Split-Path $lvfilepath -Parent)
                     {
                    
                         foreach ($lvprojFile in $lvprojFiles) {
