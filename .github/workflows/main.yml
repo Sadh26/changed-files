@@ -73,7 +73,7 @@ jobs:
             $listOfLvfiles = @()
 
 
-            foreach ($file in $changedFiles)
+             foreach ($file in $changedFiles)
              {
                 
                 while ($flag -eq $false) {
@@ -83,32 +83,18 @@ jobs:
                 $lvprojFiles = Get-ChildItem -Path $targetDirectory -Filter "*.lvproj" -File
 
                 if ($lvprojFiles.Count -gt 0) {
-                
-                    $directory = "$workspace_path/$file"
-                    echo "Directory: $directory"
-                    $directory = Split-Path $directory -Parent
-                    $flag = $true
-                    $listOfLvfiles+= $lvprojFiles
-                    $uniqueList = $listOfLvfiles | Get-Unique
-                    Write-Host $uniqueList 
 
-                    foreach ($lvprojFile in $uniqueList) {
-                        Write-Host $lvprojFile.FullName
-                        LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" $lvprojFile.FullName
-                        $TestPath = "$directory\Tests"
-                        echo "Test Path: $TestPath"
-                        Find-ViFiles $TestPath
-                    }
-
-                # If .lvproj files exist, print the paths
-                # Write-Host "Found .lvproj files:"
+                $flag = $true
+                $listOfLvfiles+= $lvprojFiles.FullName
 
                 }
-
-                $directory = Split-Path $directory -Parent
-
+                $file = $targetDirectory
                 }
                               
               }
+              $uniqueList = $listOfLvfiles | Get-Unique
+              Write-Host $uniqueList 
+
+
 
              
