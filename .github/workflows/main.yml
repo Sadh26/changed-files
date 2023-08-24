@@ -71,7 +71,7 @@ jobs:
             $isFileExist = $false
             $flag = $false
             $listOfLvfiles = @()
-
+            $uniqueList = @()
 
              foreach ($file in $changedFiles)
              {
