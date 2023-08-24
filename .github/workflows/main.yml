@@ -15,32 +15,16 @@ jobs:
     runs-on: self-hosted
     name: Test changed-files
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
-      
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v37
-        
-        # To compare changes between the current commit and the last pushed remote commit set `since_last_remote_commit: true`. e.g
-        # with:
-        #   since_last_remote_commit: true 
-
-      - name: List all changed files
-        run: |
-          foreach ($file in "${{ steps.changed-files.outputs.all_changed_files }}") {
-            Write-Output "$file was changed"
-          }
-
-      # Example 3
 
       - name: Get changed files in the src folder
         id: changed-files-specific
         uses: tj-actions/changed-files@v37
         with:
-          files: src\**\*.lvproj  # Alternatively using: `docs/**` or `docs`
+          files: src/*/*/*.vi  # Alternatively using: `docs/**` or `docs`
           separator: ","
        
           # test_files: src/**/Tests/*.vi
@@ -54,4 +38,67 @@ jobs:
         run: |
           echo "One or more files in the docs folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          
+          $workspace = "${{ github.workspace }}"
+          $workspace_path = $workspace.Replace("\", "/")
+          echo $workspace_path
+
+          $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
+
+          $changedFiles = $changed_file -split ','
+    
+          foreach ($file in $changedFiles) {
+              $directory = "$workspace_path/$file"
+              echo "Directory: $directory"  
+
+              $file_name = [System.IO.Path]::GetFileName($directory)
+              $file_path = [System.IO.Path]::GetDirectoryName($directory)
+              $filename_without_extension = [System.IO.Path]::GetFileNameWithoutExtension($file_name)
+              $proj_path= $file_path+"\"+$filename_without_extension+".lvproj"
+              echo $proj_path
+
+              LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$proj_path"
+              $TestPath = "$(Split-Path $directory -Parent)\Tests"
+              echo "Test Path: $TestPath"
+
+              $isFileExist = $false
+
+              # Function to find test vi files
+              function Find-ViFiles {
+                  param (
+                      [string]$path
+                  )
+
+                  Get-ChildItem $path -Recurse | ForEach-Object {
+                      if ($_.PSIsContainer) {
+                          Find-ViFiles $_.FullName
+                      }
+                      elseif ($_.Extension -eq ".vi") {
+                          $isFileExist = $true
+                          Write-Output ("`n`nFound .vi file: " + $_.FullName)
+                          Write-Output ("Running unit test file " + $_.FullName)
+                          $output = g-cli --lv-ver 2020 $_.FullName
+                          Write-Output ("$output")
+                          if ($output -ne $null) {
+                            $errorIn = "true"
+                          }
+                      }
+                  }
+                  if ($isFileExist -eq $false) {
+                    Write-Output "No test files found"
+                  }
+                  if ($errorIn -eq "true") {
+                    return $true
+                  }
+                  else {
+                    return $false
+                  }
+              } 
+
+              Find-ViFiles $TestPath                        
+          }          
+
+              # $directory = "$workspace_path/$changed_file"
+              # echo "Directory: $directory"
+
+
+
