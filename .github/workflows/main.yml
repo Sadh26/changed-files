@@ -114,7 +114,7 @@ jobs:
 
               # LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$proj_path"
               # $TestPath = "$(Split-Path $directory -Parent)\Tests"
-              # echo "Test Path: $TestPath"
+             
 
 
 
