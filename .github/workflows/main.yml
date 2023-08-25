@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+          fetch-depth: 0  
 
       - name: Open LabVIEW
         run: |
@@ -54,6 +54,8 @@ jobs:
                 if ($isFileExist -eq $false) {
                   Write-Output "No test files found"
                 }
+
+                # Checks for Test Suite errors and fails the pipeline
                 if ($errorIn -eq "true") {
                   return $true
                 }
