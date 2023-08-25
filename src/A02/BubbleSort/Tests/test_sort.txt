@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites framework-name="Caraya" framework-version="1.4.2.144">
+<testsuite name="Test sort" errors="0" skipped="0" tests="2" failures="0" timestamp="2023-08-21T16:11:12.608+06:00">
+    <testcase classname="Test sort" name="Ascending Order : Unsorted  Array { 7.00,6.00,5.50,5.33,3.00,2.00,1.00,-1.00 } =&gt; Sorted  Array { -1.00,1.00,2.00,3.00,5.33,5.50,6.00,7.00 }"/>
+    <testcase classname="Test sort" name="Descending Order : Unsorted  Array { 0.00,0.00,5.50,-Inf,3.00,-0.00,Inf,-1.00 } =&gt; Sorted  Array { Inf,5.50,3.00,0.00,0.00,-0.00,-1.00,-Inf }"/>
+</testsuite>
+</testsuites>
