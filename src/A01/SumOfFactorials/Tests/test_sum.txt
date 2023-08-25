@@ -1,10 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites framework-name="Caraya" framework-version="1.4.2.144">
-<testsuite name="Test Sum" errors="0" skipped="0" tests="5" failures="0" timestamp="2023-08-11T17:10:47.782+06:00">
-    <testcase classname="Test Sum" name="Factorial of 0 is 1"/>
-    <testcase classname="Test Sum" name="Factorial of 1 is 2"/>
-    <testcase classname="Test Sum" name="Factorial of 10 is 4037914"/>
-    <testcase classname="Test Sum" name="Factorial of 7 is 5914"/>
-    <testcase classname="Test Sum" name="Factorial of 8 is 46234"/>
-</testsuite>
+<testsuites>
 </testsuites>

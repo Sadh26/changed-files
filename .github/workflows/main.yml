@@ -2,8 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: ["main"]
 
   workflow_dispatch:
 
@@ -19,86 +18,109 @@ jobs:
         with:
           fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
+      - name: Open LabVIEW
+        run: |
+            start "C:\Program Files\National Instruments\LabVIEW 2020\LabVIEW.exe"
 
       - name: Get changed files in the src folder
         id: changed-files-specific
         uses: tj-actions/changed-files@v37
         with:
-          files: src/*/*/*.vi  # Alternatively using: `docs/**` or `docs`
-          separator: ","
-       
-          # test_files: src/**/Tests/*.vi
-          # files_ignore: docs/static.js
-        # run: |
-        #   echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          
-          
+          files: src/**/*.vi  # Alternatively using: `docs/**` or `docs`
+          separator: ","          
 
-      - name: Run step if any file(s) in the src folder change
+      - name: Run Tests
         run: |
-          echo "One or more files in the docs folder has changed."
-          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          $workspace = "${{ github.workspace }}"
-          $workspace_path = $workspace.Replace("\", "/")
-          echo $workspace_path
+            # Function to find test vi files
+            function Find-ViFiles {
+                param (
+                    [string]$path
+                )
+                Get-ChildItem $path -Recurse | ForEach-Object {
+                    if ($_.PSIsContainer) {
+                        Find-ViFiles $_.FullName
+                    }
+                    elseif ($_.Extension -eq ".vi") {
+                        $isFileExist = $true
+                        Write-Output ("`n`nFound .vi file: " + $_.FullName)
+                        Write-Output ("Running unit test file " + $_.FullName)
+                        $output = g-cli --lv-ver 2020 $_.FullName
+                        Write-Output ("$output")
+                        if ($output -ne $null) {
+                          $errorIn = "true"
+                        }
+                    }
+                }
+                if ($isFileExist -eq $false) {
+                  Write-Output "No test files found"
+                }
+                if ($errorIn -eq "true") {
+                  return $true
+                }
+                else {
+                  return $false
+                }
+            }      
 
-          $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
+            echo "One or more files in the src folder has changed."
+            echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
 
-          $changedFiles = $changed_file -split ','
-    
-          foreach ($file in $changedFiles) {
-              $directory = "$workspace_path/$file"
-              echo "Directory: $directory"  
+            $workspace = "${{ github.workspace }}"
+            $workspace_path = $workspace.Replace("\", "/")
 
-              $file_name = [System.IO.Path]::GetFileName($directory)
-              $file_path = [System.IO.Path]::GetDirectoryName($directory)
-              $filename_without_extension = [System.IO.Path]::GetFileNameWithoutExtension($file_name)
-              $proj_path= $file_path+"\"+$filename_without_extension+".lvproj"
-              echo $proj_path
+            $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
+            $changedFiles = $changed_file -split ',' 
 
-              LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" "$proj_path"
-              $TestPath = "$(Split-Path $directory -Parent)\Tests"
-              echo "Test Path: $TestPath"
+            $isFileExist = $false
+            $flag = $false
+            $listOfLvfiles = @()
+            $uniqueList = @()
 
-              $isFileExist = $false
+             foreach ($file in $changedFiles)
+             {
+                $flag = $false
+                while ($flag -eq $false) {
+                  $targetDirectory = Split-Path $file -Parent
 
-              # Function to find test vi files
-              function Find-ViFiles {
-                  param (
-                      [string]$path
-                  )
+                  # Get all .lvproj files in the directory
+                  $lvprojFiles = Get-ChildItem -Path $targetDirectory -Filter "*.lvproj" -File
 
-                  Get-ChildItem $path -Recurse | ForEach-Object {
-                      if ($_.PSIsContainer) {
-                          Find-ViFiles $_.FullName
-                      }
-                      elseif ($_.Extension -eq ".vi") {
-                          $isFileExist = $true
-                          Write-Output ("`n`nFound .vi file: " + $_.FullName)
-                          Write-Output ("Running unit test file " + $_.FullName)
-                          $output = g-cli --lv-ver 2020 $_.FullName
-                          Write-Output ("$output")
-                          if ($output -ne $null) {
-                            $errorIn = "true"
-                          }
-                      }
+                  if ($lvprojFiles.Count -gt 0) {
+
+                    $flag = $true
+                    $listOfLvfiles += $lvprojFiles.FullName
+
                   }
-                  if ($isFileExist -eq $false) {
-                    Write-Output "No test files found"
-                  }
-                  if ($errorIn -eq "true") {
-                    return $true
-                  }
-                  else {
-                    return $false
-                  }
-              } 
+                  $file = $targetDirectory
+                }
+                              
+              }
+              $uniqueList = $listOfLvfiles | Select-Object -Unique
+              Write-Host $uniqueList 
 
-              Find-ViFiles $TestPath                        
-          }          
+              foreach ($lvprojFile in $uniqueList) 
+              {
+                          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" $lvprojFile
+                          $directory = Split-Path $lvprojFile -Parent
+                          $TestPath = "$directory\Tests"
+                          echo "Test Path: $TestPath"
+                          Find-ViFiles $TestPath
+             }
 
-              # $directory = "$workspace_path/$changed_file"
-              # echo "Directory: $directory"
+      - name: Archive production artifacts
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: test report
+          path: |
+            ${{ github.workspace }}\src\**\Tests\*.txt   
 
 
+      - name: Close LabVIEW
+        if: ${{ always() }}
+        run: |
+            taskkill /im LabVIEW.exe
+        shell: cmd       
 
+
+             
