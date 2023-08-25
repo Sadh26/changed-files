@@ -115,7 +115,8 @@ jobs:
         with:
           name: test report
           path: |
-            ${{ github.workspace }}\src\**\Tests\*.txt   
+            # ${{ github.workspace }}\src\**\Tests\*.txt   
+            ${{ github.workspace }}\$TestPath\*.txt
 
 
       - name: Close LabVIEW
