@@ -40,7 +40,7 @@ jobs:
                     if ($_.PSIsContainer) {
                         Find-ViFiles $_.FullName
                     }
-                    elseif ($_.Name -like "Test*.vi") {
+                    elseif ($_.Name -like "Test*.vi" -or $_.Name -like "test*.vi") {
                         $isFileExist = $true
                         Write-Output ("`n`nFound .vi file: " + $_.FullName)
                         Write-Output ("Running unit test file " + $_.FullName)
