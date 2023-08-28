@@ -26,7 +26,7 @@ jobs:
         id: changed-files-specific
         uses: tj-actions/changed-files@v37
         with:
-          files: src/**/*.vi  # Alternatively using: `docs/**` or `docs`
+          files: src/**/*.vi  
           separator: ","          
 
       - name: Run Tests
@@ -40,7 +40,7 @@ jobs:
                     if ($_.PSIsContainer) {
                         Find-ViFiles $_.FullName
                     }
-                    elseif ($_.Extension -eq ".vi") {
+                    elseif ($_.Name -like "Test*.vi") {
                         $isFileExist = $true
                         Write-Output ("`n`nFound .vi file: " + $_.FullName)
                         Write-Output ("Running unit test file " + $_.FullName)
@@ -75,7 +75,7 @@ jobs:
 
             $isFileExist = $false
             $flag = $false
-            $listOfLvfiles = @()
+            $listOfLvfiles = @()  
             $uniqueList = @()
 
              foreach ($file in $changedFiles)
@@ -109,14 +109,13 @@ jobs:
                           Find-ViFiles $TestPath
              }
 
-      - name: Archive production artifacts
+      - name: Teat Report as Artifact
         if: ${{ always() }}
         uses: actions/upload-artifact@v3
         with:
           name: test report
           path: |
-            # ${{ github.workspace }}\src\**\Tests\*.txt   
-            ${{ github.workspace }}\$TestPath\*.txt
+            ${{ github.workspace }}\src\**\Tests\*.txt   
 
 
       - name: Close LabVIEW
