@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites framework-name="Caraya" framework-version="1.4.2.144">
+<testsuite name="Test Convert" errors="0" skipped="0" tests="5" failures="0" timestamp="2023-08-22T18:21:08.276+06:00">
+    <testcase classname="Test Convert" name="Input kavinPALANISAMY =&gt; Output KAVINpalanisamy"/>
+    <testcase classname="Test Convert" name="Input dhanush =&gt; Output DHANUSH"/>
+    <testcase classname="Test Convert" name="Input GEFFREY =&gt; Output geffrey"/>
+    <testcase classname="Test Convert" name="VI Stopped and FP Open"/>
+    <testcase classname="Test Convert" name="VI Stopped and FP Closed"/>
+</testsuite>
+</testsuites>
