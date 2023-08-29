@@ -72,10 +72,8 @@ jobs:
             $workspace_path = $workspace.Replace("\", "/")
 
             $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
-
-            echo "Changed file: $changed_file"
-            
             $changedFiles = $changed_file -split ',' 
+            echo "$changedFiles"
 
             $isFileExist = $false
             $flag = $false
