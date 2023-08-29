@@ -57,6 +57,7 @@ jobs:
 
                 # Checks for Test Suite errors and fails the pipeline
                 if ($errorIn -eq "true") {
+                  return $true
                   Exit 1
                 }
                 else {
@@ -107,6 +108,7 @@ jobs:
                           $TestPath = "$directory\Tests"
                           echo "Test Path: $TestPath"
                           Find-ViFiles $TestPath
+                          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\CloseProject.vi" $lvprojFile
              }
 
       - name: Teat Report as Artifact
