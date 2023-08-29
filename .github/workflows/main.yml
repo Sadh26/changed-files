@@ -32,6 +32,9 @@ jobs:
       - name: Run Tests
         run: |
             # Function to find test vi files
+
+            $errorIn = "false"
+            
             function Find-ViFiles {
                 param (
                     [string]$path
