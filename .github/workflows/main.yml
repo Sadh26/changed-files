@@ -71,7 +71,7 @@ jobs:
             $workspace = "${{ github.workspace }}"
             $workspace_path = $workspace.Replace("\", "/")
 
-            $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
+            $changed_file = ${{ steps.changed-files-specific.outputs.all_changed_files }}
             $changedFiles = $changed_file -split ',' 
 
             $isFileExist = $false
