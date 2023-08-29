@@ -58,7 +58,6 @@ jobs:
                 # Checks for Test Suite errors and fails the pipeline
                 if ($errorIn -eq "true") {
                   Exit 1
-                  return $false
                 }
                 else {
                   return $false
