@@ -73,7 +73,6 @@ jobs:
 
             $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
             $changedFiles = $changed_file -split ',' 
-            # echo "$changedFiles"
 
             $isFileExist = $false
             $flag = $false
@@ -109,7 +108,6 @@ jobs:
                           $TestPath = "$directory\Tests"
                           echo "Test Path: $TestPath"
                           Find-ViFiles $TestPath
-                          # LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\CloseProject.vi" $lvprojFile
              }
 
       - name: Teat Report as Artifact
