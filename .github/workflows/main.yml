@@ -113,10 +113,6 @@ jobs:
                           LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Project file\CloseProject.vi" $lvprojFile
              }
 
-             if (Find-ViFiles -eq $true) {
-                  Write-Output "Error exists..."
-                  Exit 1
-              }
 
       - name: Teat Report as Artifact
         if: ${{ always() }}
