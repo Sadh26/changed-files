@@ -103,12 +103,12 @@ jobs:
 
               foreach ($lvprojFile in $uniqueList) 
               {
-                          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" $lvprojFile
+                          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Project file\OpenProject.vi" $lvprojFile
                           $directory = Split-Path $lvprojFile -Parent
                           $TestPath = "$directory\Tests"
                           echo "Test Path: $TestPath"
                           Find-ViFiles $TestPath
-                          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\CloseProject.vi" $lvprojFile
+                          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Project file\CloseProject.vi" $lvprojFile
              }
 
       - name: Teat Report as Artifact
