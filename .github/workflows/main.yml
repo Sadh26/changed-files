@@ -34,7 +34,7 @@ jobs:
             # Function to find test vi files
 
             $errorIn = "false"
-            
+
             function Find-ViFiles {
                 param (
                     [string]$path
@@ -60,6 +60,7 @@ jobs:
 
                 # Checks for Test Suite errors and fails the pipeline
                 if ($errorIn -eq "true") {
+                  Write-Output "Error exists..."
                   Exit 1
                 }
                 else {
