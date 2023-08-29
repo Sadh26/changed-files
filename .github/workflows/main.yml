@@ -21,7 +21,6 @@ jobs:
       - name: Open LabVIEW
         run: |
             start "C:\Program Files\National Instruments\LabVIEW 2020\LabVIEW.exe"
-
       - name: Get changed files in the src folder
         id: changed-files-specific
         uses: tj-actions/changed-files@v37
@@ -32,9 +31,6 @@ jobs:
       - name: Run Tests
         run: |
             # Function to find test vi files
-
-            $errorIn = "false"
-
             function Find-ViFiles {
                 param (
                     [string]$path
@@ -57,45 +53,34 @@ jobs:
                 if ($isFileExist -eq $false) {
                   Write-Output "No test files found"
                 }
-
                 # Checks for Test Suite errors and fails the pipeline
                 if ($errorIn -eq "true") {
-                  Write-Output "Error exists..."
                   Exit 1
                 }
                 else {
                   return $false
                 }
             }      
-
             echo "One or more files in the src folder has changed."
             echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-
             $workspace = "${{ github.workspace }}"
             $workspace_path = $workspace.Replace("\", "/")
-
             $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
             $changedFiles = $changed_file -split ',' 
-
             $isFileExist = $false
             $flag = $false
             $listOfLvfiles = @()  
             $uniqueList = @()
-
              foreach ($file in $changedFiles)
              {
                 $flag = $false
                 while ($flag -eq $false) {
                   $targetDirectory = Split-Path $file -Parent
-
                   # Get all .lvproj files in the directory
                   $lvprojFiles = Get-ChildItem -Path $targetDirectory -Filter "*.lvproj" -File
-
                   if ($lvprojFiles.Count -gt 0) {
-
                     $flag = $true
                     $listOfLvfiles += $lvprojFiles.FullName
-
                   }
                   $file = $targetDirectory
                 }
@@ -103,7 +88,6 @@ jobs:
               }
               $uniqueList = $listOfLvfiles | Select-Object -Unique
               Write-Host $uniqueList 
-
               foreach ($lvprojFile in $uniqueList) 
               {
                           LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Project file\OpenProject.vi" $lvprojFile
@@ -111,8 +95,8 @@ jobs:
                           $TestPath = "$directory\Tests"
                           echo "Test Path: $TestPath"
                           Find-ViFiles $TestPath
-                          # LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Project file\CloseProject.vi" $lvprojFile
              }
+
 
       - name: Teat Report as Artifact
         if: ${{ always() }}
@@ -121,13 +105,8 @@ jobs:
           name: test report
           path: |
             ${{ github.workspace }}\src\**\Tests\*.txt   
-
-
       - name: Close LabVIEW
         if: ${{ always() }}
         run: |
             taskkill /im LabVIEW.exe
-        shell: cmd       
-
-
-             
+        shell: cmd  
