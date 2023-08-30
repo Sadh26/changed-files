@@ -80,6 +80,7 @@ jobs:
             $flag = $false
             $listOfLvfiles = @()  
             $uniqueList = @()
+            $test_error = @()
 
              foreach ($file in $changedFiles)
              {
@@ -105,15 +106,16 @@ jobs:
 
               foreach ($lvprojFile in $uniqueList) 
               {
-                          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Project file\OpenProject.vi" $lvprojFile
-                          $directory = Split-Path $lvprojFile -Parent
-                          $TestPath = "$directory\Tests"
-                          echo "Test Path: $TestPath"
-                          $error = Find-ViFiles $TestPath
-                          LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Project file\CloseProject.vi" $lvprojFile
+                LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Project file\OpenProject.vi" $lvprojFile
+                $directory = Split-Path $lvprojFile -Parent
+                $TestPath = "$directory\Tests"
+                echo "Test Path: $TestPath"
+                $test_error += $(Find-ViFiles $TestPath)
+                LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Project file\CloseProject.vi" $lvprojFile
              }
 
-             if ($error -eq $true){
+             if ($test_error -contains $true)
+             {
                 Exit 1
              }
 
