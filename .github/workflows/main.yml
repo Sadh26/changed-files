@@ -109,8 +109,12 @@ jobs:
                           $directory = Split-Path $lvprojFile -Parent
                           $TestPath = "$directory\Tests"
                           echo "Test Path: $TestPath"
-                          Find-ViFiles $TestPath
+                          $error = Find-ViFiles $TestPath
                           LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Project file\CloseProject.vi" $lvprojFile
+             }
+
+             if ($error -eq $true){
+                Exit 1
              }
 
 
