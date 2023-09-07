@@ -88,8 +88,10 @@ jobs:
              foreach ($file in $changedFiles)
              {
                 echo "This is each file: $file"
+                $targetDirectory1 = Split-Path $file -Parent
+                echo "$targetDirectory1"
                 echo $file.GetType()
-                
+
                 $flag = $false
                 while ($flag -eq $false) {
                   $targetDirectory = Split-Path $file -Parent
