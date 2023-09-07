@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites framework-name="Caraya" framework-version="1.4.2.144">
+<testsuite name="Test Caller Called" errors="0" skipped="0" tests="4" failures="0" timestamp="2023-09-01T09:23:48.464+06:00">
+    <testcase classname="Test Caller Called" name="Called VI Launched?"/>
+    <testcase classname="Test Caller Called" name="Called VI Modal?"/>
+    <testcase classname="Test Caller Called" name="Called VI Closed?"/>
+    <testcase classname="Test Caller Called" name="Caller VI Stopped?"/>
+</testsuite>
+</testsuites>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites framework-name="Caraya" framework-version="1.4.2.144">
+<testsuite name="Test Function" errors="0" skipped="0" tests="2" failures="0" timestamp="2023-09-01T09:30:38.455+06:00">
+    <testcase classname="Test Function" name="Listed All the controls&apos; properties?"/>
+    <testcase classname="Test Function" name="Listed All the indicators&apos; properties?"/>
+</testsuite>
+</testsuites>
