@@ -86,12 +86,13 @@ jobs:
 
              foreach ($file in $changedFiles)
              {
-              if (-not [string]::IsNullOrEmpty($file)) {
+              
                 $flag = $false
                 while ($flag -eq $false) {
 
+                if (-not [string]::IsNullOrEmpty($file)) {
+
                   $targetDirectory = Split-Path $file -Parent
-                  echo "$targetDirectory"
 
                   # Get all .lvproj files in the directory
                   $lvprojFiles = Get-ChildItem -Path $targetDirectory -Filter "*.lvproj" -File
@@ -104,13 +105,12 @@ jobs:
                   }
                   $file = $targetDirectory
                 } 
-              }
-              else {
+                else {
                   Write-Host "No project file found"
                   $flag = $true
                 }
-                
-              }
+              }         
+            }
               $uniqueList = $listOfLvfiles | Select-Object -Unique
               Write-Host $uniqueList 
 
