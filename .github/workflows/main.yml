@@ -103,12 +103,13 @@ jobs:
 
                   }
                   $file = $targetDirectory
-                } else {
+                } 
+              }
+              else {
                   Write-Host "No project file found"
                   $flag = $true
-                  }
                 }
-                              
+                
               }
               $uniqueList = $listOfLvfiles | Select-Object -Unique
               Write-Host $uniqueList 
