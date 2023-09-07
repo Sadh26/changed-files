@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites framework-name="Caraya" framework-version="1.4.2.144">
+<testsuite name="Test Latch when released" errors="0" skipped="0" tests="16" failures="0" timestamp="2023-08-16T10:16:06.269+06:00">
+    <testcase classname="Test Latch when released" name="LED True ?"/>
+    <testcase classname="Test Latch when released" name="Elapsed Time is 1 sec"/>
+    <testcase classname="Test Latch when released" name="LED False ?"/>
+    <testcase classname="Test Latch when released" name="LED True ?"/>
+    <testcase classname="Test Latch when released" name="Elapsed Time is 2 sec"/>
+    <testcase classname="Test Latch when released" name="LED False ?"/>
+    <testcase classname="Test Latch when released" name="LED True ?"/>
+    <testcase classname="Test Latch when released" name="Elapsed Time is 3 sec"/>
+    <testcase classname="Test Latch when released" name="LED False ?"/>
+    <testcase classname="Test Latch when released" name="LED True ?"/>
+    <testcase classname="Test Latch when released" name="Elapsed Time is 4 sec"/>
+    <testcase classname="Test Latch when released" name="LED False ?"/>
+    <testcase classname="Test Latch when released" name="LED True ?"/>
+    <testcase classname="Test Latch when released" name="Elapsed Time is 5 sec"/>
+    <testcase classname="Test Latch when released" name="LED False ?"/>
+    <testcase classname="Test Latch when released" name="Time is 0 when reset"/>
+</testsuite>
+</testsuites>

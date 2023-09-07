@@ -1,0 +1,1 @@
+Latch when pressed, latch when released has to be done testing

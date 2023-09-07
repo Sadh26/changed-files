@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites framework-name="Caraya" framework-version="1.4.2.144">
+<testsuite name="Test 1" errors="0" skipped="0" tests="6" failures="0" timestamp="2023-08-21T16:01:46.177+06:00">
+    <testcase classname="Test 1" name="Check database"/>
+    <testcase classname="Test 1" name="Card Holder Name = Nishanth"/>
+    <testcase classname="Test 1" name="Card Number check: 1"/>
+    <testcase classname="Test 1" name="Card Holder name check: Nishanth"/>
+    <testcase classname="Test 1" name="Card Validity check: 14"/>
+    <testcase classname="Test 1" name="Valid upto data check = 50"/>
+</testsuite>
+<testsuite name="Test 2" errors="0" skipped="0" tests="6" failures="0" timestamp="2023-08-21T16:01:47.981+06:00">
+    <testcase classname="Test 2" name="Check database"/>
+    <testcase classname="Test 2" name="Card Holder Name = Annie"/>
+    <testcase classname="Test 2" name="Card Number check: 3"/>
+    <testcase classname="Test 2" name="Card Holder name check: Kishore"/>
+    <testcase classname="Test 2" name="Card Validity check: 50"/>
+    <testcase classname="Test 2" name="Valid upto data check = 50"/>
+</testsuite>
+<testsuite name="Test 3" errors="0" skipped="0" tests="6" failures="0" timestamp="2023-08-21T16:01:49.372+06:00">
+    <testcase classname="Test 3" name="Check database"/>
+    <testcase classname="Test 3" name="Card Holder Name = Dhanush"/>
+    <testcase classname="Test 3" name="Card Number check: 4"/>
+    <testcase classname="Test 3" name="Card Holder name check: Asif"/>
+    <testcase classname="Test 3" name="Card Validity check: 49"/>
+    <testcase classname="Test 3" name="Valid upto data check = 14"/>
+</testsuite>
+</testsuites>

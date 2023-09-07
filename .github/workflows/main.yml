@@ -60,9 +60,14 @@ jobs:
                   Write-Output "No test files found"
                 }
 
+<<<<<<< HEAD
                 # Checks for Test Suite errors and returns true/false
+=======
+                # Checks for Test Suite errors and fails the pipeline
+>>>>>>> 9ed01d0504b3100a5781cadebab6cd43af24e1be
                 if ($errorIn -eq "true") {
                   return $true
+                  Exit 1
                 }
                 else {
                   return $false
@@ -116,6 +121,7 @@ jobs:
                 LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\CloseProject.vi" $lvprojFile
              }
 
+<<<<<<< HEAD
              if ($test_error -contains $true)
              {
                 Exit 1
@@ -123,6 +129,9 @@ jobs:
 
 
       - name: Test Report as Artifact
+=======
+      - name: Teat Report as Artifact
+>>>>>>> 9ed01d0504b3100a5781cadebab6cd43af24e1be
         if: ${{ always() }}
         uses: actions/upload-artifact@v3
         with:
