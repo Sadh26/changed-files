@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites framework-name="Caraya" framework-version="1.4.2.144">
-<testsuite name="Test Function" errors="0" skipped="0" tests="8" failures="0" timestamp="2023-08-22T18:20:43.861+06:00">
+<testsuites framework-name="Caraya" framework-version="1.4.2.145">
+<testsuite name="Test Function" errors="0" skipped="0" tests="8" failures="0" timestamp="2023-09-06T17:16:40.080+06:00">
     <testcase classname="Test Function" name="Timer starts running"/>
     <testcase classname="Test Function" name="Pause Time at 3 sec = Result Time is 3 sec"/>
     <testcase classname="Test Function" name="Time paused for 3 sec = Result Time is 3 sec"/>

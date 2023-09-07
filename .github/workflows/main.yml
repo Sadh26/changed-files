@@ -1,4 +1,4 @@
-name: CI
+name: Run Acceptance Tests
 
 on:
   pull_request:
@@ -10,7 +10,9 @@ jobs:
   # ------------------------------------------------------------------------------------------------------------------------------------------------
   # Event `pull_request`: Compare the last commit of the main branch or last remote commit of the PR branch -> to the current commit of a PR branch.
   # ------------------------------------------------------------------------------------------------------------------------------------------------
+  
   changed_files:
+
     runs-on: self-hosted
     name: Test changed-files
     steps:
@@ -58,7 +60,7 @@ jobs:
                   Write-Output "No test files found"
                 }
 
-                # Checks for Test Suite errors and fails the pipeline
+                # Checks for Test Suite errors and returns true/false
                 if ($errorIn -eq "true") {
                   return $true
                 }
@@ -106,12 +108,12 @@ jobs:
 
               foreach ($lvprojFile in $uniqueList) 
               {
-                LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Project file\OpenProject.vi" $lvprojFile
+                LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\OpenProject.vi" $lvprojFile
                 $directory = Split-Path $lvprojFile -Parent
                 $TestPath = "$directory\Tests"
                 echo "Test Path: $TestPath"
                 $test_error += $(Find-ViFiles $TestPath)
-                LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Project file\CloseProject.vi" $lvprojFile
+                LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\CloseProject.vi" $lvprojFile
              }
 
              if ($test_error -contains $true)
@@ -120,7 +122,7 @@ jobs:
              }
 
 
-      - name: Teat Report as Artifact
+      - name: Test Report as Artifact
         if: ${{ always() }}
         uses: actions/upload-artifact@v3
         with:

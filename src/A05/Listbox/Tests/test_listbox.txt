@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites framework-name="Caraya" framework-version="1.4.2.144">
+<testsuite name="Test List Box" errors="0" skipped="0" tests="9" failures="0" timestamp="2023-09-01T09:25:43.665+06:00">
+    <testcase classname="Test List Box" name="Selected Item Updated"/>
+    <testcase classname="Test List Box" name="Left Positon Changed"/>
+    <testcase classname="Test List Box" name="Top Positon Changed"/>
+    <testcase classname="Test List Box" name="Selected Item Updated"/>
+    <testcase classname="Test List Box" name="Left Positon Changed"/>
+    <testcase classname="Test List Box" name="Top Positon Changed"/>
+    <testcase classname="Test List Box" name="Selected Item Updated"/>
+    <testcase classname="Test List Box" name="Left Positon Changed"/>
+    <testcase classname="Test List Box" name="Top Positon Changed"/>
+</testsuite>
+</testsuites>
