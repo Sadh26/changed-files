@@ -87,7 +87,7 @@ jobs:
 
              foreach ($file in $changedFiles)
              {
-                echo $file
+                echo "This is each file: $file"
                 $flag = $false
                 while ($flag -eq $false) {
                   $targetDirectory = Split-Path $file -Parent
