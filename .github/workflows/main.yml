@@ -77,7 +77,6 @@ jobs:
 
             $changed_file = "${{ steps.changed-files-specific.outputs.all_changed_files }}"
             $changedFiles = $changed_file -split ',' 
-            echo $changedFiles
 
             $isFileExist = $false
             $flag = $false
@@ -87,11 +86,7 @@ jobs:
 
              foreach ($file in $changedFiles)
              {
-                echo "This is each file: $file"
-                $targetDirectory1 = Split-Path $file -Parent
-                echo "$targetDirectory1"
-
-
+              if (-not [string]::IsNullOrEmpty($file)) {
                 $flag = $false
                 while ($flag -eq $false) {
 
@@ -108,6 +103,10 @@ jobs:
 
                   }
                   $file = $targetDirectory
+                } else {
+                  Write-Host "No project file found"
+                  $flag = $true
+                  }
                 }
                               
               }
