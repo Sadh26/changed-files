@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<testsuites>
+
+  <testsuite errors="0" failures="0" hostname="localhost" id="0" name="Test Operations" package="LogicalComparisonTest.lvlib" skipped="0" tests="0" time="0" timestamp="2023-09-14T12:49:06">
+    <properties></properties>
+    <system-out></system-out>
+    <system-err></system-err>
+  </testsuite>
+
+</testsuites>

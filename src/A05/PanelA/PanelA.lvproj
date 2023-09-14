@@ -10,19 +10,22 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
-		<Item Name="Sources" Type="Folder">
-			<Item Name="ComparingTwoNumbers" Type="Folder">
+		<Item Name="Source" Type="Folder">
+			<Item Name="GetControlDetails" Type="Folder">
 				<Item Name="Tests" Type="Folder">
-					<Item Name="LogicalComparisonTest.lvlib" Type="Library" URL="../Tests/LogicalComparisonTest.lvlib"/>
-					<Item Name="test_operations.txt" Type="Document" URL="../Tests/test_operations.txt"/>
+					<Item Name="GetControlDetailsTests.lvlib" Type="Library" URL="../Tests/GetControlDetailsTests.lvlib"/>
+					<Item Name="SampleReport.jpg" Type="Document" URL="../Tests/SampleReport.jpg"/>
+					<Item Name="test_function.txt" Type="Document" URL="../Tests/test_function.txt"/>
 				</Item>
 				<Item Name="Typedefs" Type="Folder">
-					<Item Name="EnumControl.ctl" Type="VI" URL="../Typedefs/EnumControl.ctl"/>
+					<Item Name="controlcluster.ctl" Type="VI" URL="../Typedefs/controlcluster.ctl"/>
+					<Item Name="indicatorcluster.ctl" Type="VI" URL="../Typedefs/indicatorcluster.ctl"/>
 				</Item>
-				<Item Name="ComparingTwoNumbers.vi" Type="VI" URL="../ComparingTwoNumbers.vi"/>
 				<Item Name="Drona.ini" Type="Document" URL="../Drona.ini"/>
+				<Item Name="PanelA.vi" Type="VI" URL="../PanelA.vi"/>
 			</Item>
 		</Item>
+		<Item Name="Cluster.ctl" Type="VI" URL="../Typedefs/Cluster.ctl"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="user.lib" Type="Folder">
 				<Item Name="Array of VData to VArray__ogtk.vi" Type="VI" URL="/&lt;userlib&gt;/_OpenG.lib/lvdata/lvdata.llb/Array of VData to VArray__ogtk.vi"/>
@@ -64,58 +67,58 @@
 				<Item Name="Waveform Subtype Enum__ogtk.ctl" Type="VI" URL="/&lt;userlib&gt;/_OpenG.lib/lvdata/lvdata.llb/Waveform Subtype Enum__ogtk.ctl"/>
 			</Item>
 			<Item Name="vi.lib" Type="Folder">
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Array Size(s)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Array Size(s)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Array to Array of VData__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Array to Array of VData__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Build Error Cluster__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Build Error Cluster__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Build Path - File Names Array__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Build Path - File Names Array__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Cluster to Array of VData__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Cluster to Array of VData__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Delete Elements from 1D Array (Path)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Delete Elements from 1D Array (Path)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Delete Elements from 1D Array (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Delete Elements from 1D Array (String)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Empty 1D Array (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Empty 1D Array (String)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489File Exists - Scalar__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489File Exists - Scalar__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Filter 1D Array (Path)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Filter 1D Array (Path)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Filter 1D Array (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Filter 1D Array (String)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Format Variant Into String__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Format Variant Into String__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Array Element TDEnum__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Array Element TDEnum__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Data Name from TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Data Name from TD__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Data Name__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Data Name__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Element TD from Array TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Element TD from Array TD__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Header from TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Header from TD__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Last PString__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Last PString__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Local UTC Offset.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Local UTC Offset.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Physical Units from TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Physical Units from TD__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Physical Units__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Physical Units__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get PString__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get PString__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Refnum Type Enum from Data__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Refnum Type Enum from Data__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Refnum Type Enum from TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Refnum Type Enum from TD__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Strings from Enum TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Strings from Enum TD__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Strings from Enum__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Strings from Enum__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get TDEnum from Data__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get TDEnum from Data__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get TDEnum from TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get TDEnum from TD__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Variant Attributes__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Variant Attributes__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Waveform Type Enum from Data__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Waveform Type Enum from Data__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Get Waveform Type Enum from TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Get Waveform Type Enum from TD__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489List Directory Recursive__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489List Directory Recursive__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489List Directory__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489List Directory__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Parse String with TDs__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Parse String with TDs__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Remove Duplicates from 1D Array (I32)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Remove Duplicates from 1D Array (I32)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Remove Duplicates from 1D Array (Path)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Remove Duplicates from 1D Array (Path)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Remove Duplicates from 1D Array (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Remove Duplicates from 1D Array (String)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Reorder 1D Array2 (Path)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Reorder 1D Array2 (Path)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Reorder 1D Array2 (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Reorder 1D Array2 (String)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Reshape Array to 1D VArray__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Reshape Array to 1D VArray__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Resolve Timestamp Format__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Resolve Timestamp Format__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Search 1D Array (Path)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Search 1D Array (Path)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Search 1D Array (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Search 1D Array (String)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Set Data Name__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Set Data Name__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Sort 1D Array (I32)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Sort 1D Array (I32)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Split Cluster TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Split Cluster TD__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Strip Path Extension - String__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Strip Path Extension - String__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Strip Units__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Strip Units__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Timestamp to ISO8601 UTC DateTime.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Timestamp to ISO8601 UTC DateTime.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Trim Whitespace (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Trim Whitespace (String)__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Unwrap VVariant__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Unwrap VVariant__ogtk.vi"/>
-				<Item Name="7F74EC14CB6F87B712ADB3E4000AA489Variant to Header Info__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/7F74EC14CB6F87B712ADB3E4000AA489Variant to Header Info__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAArray Size(s)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAArray Size(s)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAArray to Array of VData__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAArray to Array of VData__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AABuild Error Cluster__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AABuild Error Cluster__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AABuild Path - File Names Array__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AABuild Path - File Names Array__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AACluster to Array of VData__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AACluster to Array of VData__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AADelete Elements from 1D Array (Path)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AADelete Elements from 1D Array (Path)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AADelete Elements from 1D Array (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AADelete Elements from 1D Array (String)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAEmpty 1D Array (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAEmpty 1D Array (String)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAFile Exists - Scalar__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAFile Exists - Scalar__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAFilter 1D Array (Path)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAFilter 1D Array (Path)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAFilter 1D Array (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAFilter 1D Array (String)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAFormat Variant Into String__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAFormat Variant Into String__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Array Element TDEnum__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Array Element TDEnum__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Data Name from TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Data Name from TD__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Data Name__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Data Name__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Element TD from Array TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Element TD from Array TD__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Header from TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Header from TD__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Last PString__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Last PString__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Local UTC Offset.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Local UTC Offset.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Physical Units from TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Physical Units from TD__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Physical Units__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Physical Units__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet PString__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet PString__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Refnum Type Enum from Data__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Refnum Type Enum from Data__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Refnum Type Enum from TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Refnum Type Enum from TD__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Strings from Enum TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Strings from Enum TD__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Strings from Enum__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Strings from Enum__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet TDEnum from Data__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet TDEnum from Data__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet TDEnum from TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet TDEnum from TD__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Variant Attributes__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Variant Attributes__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Waveform Type Enum from Data__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Waveform Type Enum from Data__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Waveform Type Enum from TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAGet Waveform Type Enum from TD__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAList Directory Recursive__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAList Directory Recursive__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAList Directory__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAList Directory__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAParse String with TDs__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAParse String with TDs__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AARemove Duplicates from 1D Array (I32)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AARemove Duplicates from 1D Array (I32)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AARemove Duplicates from 1D Array (Path)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AARemove Duplicates from 1D Array (Path)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AARemove Duplicates from 1D Array (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AARemove Duplicates from 1D Array (String)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAReorder 1D Array2 (Path)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAReorder 1D Array2 (Path)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAReorder 1D Array2 (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAReorder 1D Array2 (String)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAReshape Array to 1D VArray__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAReshape Array to 1D VArray__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAResolve Timestamp Format__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAResolve Timestamp Format__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AASearch 1D Array (Path)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AASearch 1D Array (Path)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AASearch 1D Array (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AASearch 1D Array (String)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AASet Data Name__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AASet Data Name__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AASort 1D Array (I32)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AASort 1D Array (I32)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AASplit Cluster TD__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AASplit Cluster TD__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAStrip Path Extension - String__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAStrip Path Extension - String__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAStrip Units__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAStrip Units__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AATimestamp to ISO8601 UTC DateTime.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AATimestamp to ISO8601 UTC DateTime.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AATrim Whitespace (String)__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AATrim Whitespace (String)__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAUnwrap VVariant__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAUnwrap VVariant__ogtk.vi"/>
+				<Item Name="5EF89B1B2BCD26DEBD3583F5BA4E69AAVariant to Header Info__ogtk.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/_Caraya_internal_deps/5EF89B1B2BCD26DEBD3583F5BA4E69AAVariant to Header Info__ogtk.vi"/>
 				<Item Name="8.6CompatibleGlobalVar.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/config.llb/8.6CompatibleGlobalVar.vi"/>
 				<Item Name="Add State(s) to Queue__jki_lib_state_machine.vi" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/State Machine/_JKI_lib_State_Machine.llb/Add State(s) to Queue__jki_lib_state_machine.vi"/>
 				<Item Name="Application Directory.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Application Directory.vi"/>
@@ -164,6 +167,7 @@
 				<Item Name="Longest Line Length in Pixels.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Longest Line Length in Pixels.vi"/>
 				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
 				<Item Name="LVRectTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVRectTypeDef.ctl"/>
+				<Item Name="NI_Data Type.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/Data Type/NI_Data Type.lvlib"/>
 				<Item Name="NI_FileType.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/lvfile.llb/NI_FileType.lvlib"/>
 				<Item Name="NI_LVConfig.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/config.llb/NI_LVConfig.lvlib"/>
 				<Item Name="NI_PackedLibraryUtility.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/LVLibp/NI_PackedLibraryUtility.lvlib"/>
