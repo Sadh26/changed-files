@@ -12,7 +12,7 @@ jobs:
   # ------------------------------------------------------------------------------------------------------------------------------------------------
   
   changed_files:
-
+  
     runs-on: self-hosted
     name: Test changed-files
     steps:
@@ -112,6 +112,7 @@ jobs:
                 $directory = Split-Path $lvprojFile -Parent
                 $TestPath = "$directory\Tests"
                 echo "Test Path: $TestPath"
+
                 # $test_error += $(Find-ViFiles $TestPath)
                 LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\src\Project file\CloseProject.vi" $lvprojFile
              }
